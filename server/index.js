@@ -2,6 +2,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
+import TvShow from "./models/TvShow.js";
 dotenv.config();
 
 const app = express();
@@ -16,40 +17,40 @@ const connectDB = async () => {
   }
 };
 
-const TV_SHOWS = [];
-
 app.get("/health", (req, res) => {
   res.status(200).json({ message: "Server is running" });
 });
 
-app.get("/tv-shows", (req, res) => {
+app.get("/tv-shows", async (req, res) => {
+  const tvShows = await TvShow.find();
+
   return res.status(200).json({
     success: true,
-    data: TV_SHOWS,
+    data: tvShows,
     message: "TV shows fetched successfully",
   });
 });
 
-app.post("/tv-shows", (req, res) => {
+app.post("/tv-shows", async (req, res) => {
   const { title, timing, channel, thumbnail } = req.body;
 
-  const newTVShow = {
+  const newTvShow = new TvShow({
     title,
     timing,
     channel,
     thumbnail,
-  };
+  });
 
-  TV_SHOWS.push(newTVShow);
+  const savedTvShow = await newTvShow.save();
 
   return res.status(201).json({
     success: true,
-    data: newTVShow,
+    data: savedTvShow,
     message: "TV show added successfully",
   });
 });
 
-const PORT = 5002;
+const PORT = process.env.PORT || 5002;
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
