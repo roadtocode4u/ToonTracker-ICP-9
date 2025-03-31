@@ -2,7 +2,12 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
-import TvShow from "./models/TvShow.js";
+import {
+  getTvShows,
+  postTvShows,
+  getTvShowsById,
+  deleteTvShowsById
+} from "./controllers/tv-shows.js";
 dotenv.config();
 
 const app = express();
@@ -21,34 +26,10 @@ app.get("/health", (req, res) => {
   res.status(200).json({ message: "Server is running" });
 });
 
-app.get("/tv-shows", async (req, res) => {
-  const tvShows = await TvShow.find();
-
-  return res.status(200).json({
-    success: true,
-    data: tvShows,
-    message: "TV shows fetched successfully",
-  });
-});
-
-app.post("/tv-shows", async (req, res) => {
-  const { title, timing, channel, thumbnail } = req.body;
-
-  const newTvShow = new TvShow({
-    title,
-    timing,
-    channel,
-    thumbnail,
-  });
-
-  const savedTvShow = await newTvShow.save();
-
-  return res.status(201).json({
-    success: true,
-    data: savedTvShow,
-    message: "TV show added successfully",
-  });
-});
+app.get("/tv-shows", getTvShows);
+app.post("/tv-shows", postTvShows);
+app.get("/tv-shows/:id", getTvShowsById);
+app.delete("/tv-shows/:id", deleteTvShowsById);
 
 const PORT = process.env.PORT || 5002;
 
