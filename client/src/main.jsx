@@ -1,5 +1,6 @@
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
+import "./style.css";
 import Home from "./views/Home";
 
 createRoot(document.getElementById("root")).render(

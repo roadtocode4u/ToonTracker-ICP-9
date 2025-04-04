@@ -19,22 +19,22 @@ function Home() {
 
   return (
     <div>
-      <h1>Toon Tracker</h1>
+      <div className="flex flex-wrap justify-center">
+        {tvShows.map((serialObj) => {
+          const { _id, title, timing, channel, thumbnail } = serialObj;
 
-      {tvShows.map((serialObj) => {
-        const { _id, title, timing, channel, thumbnail } = serialObj;
-
-        return (
-          <TvShowCard
-            key={_id}
-            _id={_id}
-            title={title}
-            timing={timing}
-            channel={channel}
-            thumbnail={thumbnail}
-          />
-        );
-      })}
+          return (
+            <TvShowCard
+              key={_id}
+              _id={_id}
+              title={title}
+              timing={timing}
+              channel={channel}
+              thumbnail={thumbnail}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
