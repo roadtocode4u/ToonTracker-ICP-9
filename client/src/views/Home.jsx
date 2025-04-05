@@ -59,7 +59,7 @@ function Home() {
 
   return (
     <div>
-      <div className="h-15 w-15 cursor-pointer fixed bottom-5 right-5 bg-blue-500 text-white  shadow-lg hover:bg-blue-600 transition duration-300 flex items-center justify-center rounded-full">
+      <div className="h-15 w-15 cursor-pointer fixed bottom-5 right-5 bg-blue-500 text-white  shadow-lg hover:bg-blue-600 transition duration-300 flex items-center justify-center rounded-full z-50">
         <SquarePlusIcon
           onClick={() => {
             setIsModalOpen(true);
@@ -80,6 +80,7 @@ function Home() {
               timing={timing}
               channel={channel}
               thumbnail={thumbnail}
+              loadTvShows={loadTvShows}
             />
           );
         })}
