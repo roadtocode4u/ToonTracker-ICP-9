@@ -13,6 +13,38 @@ const getTvShows = async (req, res) => {
 const postTvShows = async (req, res) => {
   const { title, timing, channel, thumbnail } = req.body;
 
+  if(!title){
+    return res.status(400).json({
+      success: false,
+      message: "Title is required",
+      data: null,
+    });
+  }
+
+  if(!timing){
+    return res.status(400).json({
+      success: false,
+      message: "Timing is required",
+      data: null,
+    });
+  }
+
+  if(!channel){
+    return res.status(400).json({
+      success: false,
+      message: "Channel is required",
+      data: null,
+    });
+  }
+
+  if(!thumbnail){
+    return res.status(400).json({
+      success: false,
+      message: "Thumbnail is required",
+      data: null,
+    });
+  }
+
   const newTvShow = new TvShow({
     title,
     timing,
